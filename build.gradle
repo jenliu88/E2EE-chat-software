@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.76'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.register('runServer', JavaExec) {
+    mainClass = 'Server'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('runClient', JavaExec) {
+    mainClass = 'Client'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.named('runClient') {
+    standardInput = System.in
+}
